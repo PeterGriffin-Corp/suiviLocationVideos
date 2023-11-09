@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package projet_java;
+package suivilocationvideos;
+
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -50,6 +52,7 @@ public class Film {
     public void removeActeur(final Acteur aActeur) {
         acteurs.remove(aActeur);
     }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

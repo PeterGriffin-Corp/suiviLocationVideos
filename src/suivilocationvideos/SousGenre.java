@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package projet_java;
+package suivilocationvideos;
 
 import java.util.Objects;
 
@@ -11,17 +11,19 @@ import java.util.Objects;
  * @author jlema
  */
 public class SousGenre {
-    private final String nonSousGenre;
-    private final Enum genre;
+    private final String nomSousGenre;
+    private final Genre genre;
 
-    public SousGenre(String aNonSousGenre, Enum aGenre) {
-        this.nonSousGenre = aNonSousGenre;
-        this.genre = aGenre;
+    public SousGenre(String _NomSousGenre, Genre _Genre) {
+        this.nomSousGenre = _NomSousGenre;
+        this.genre = _Genre;
     }
 
     
-    public String getNonSousGenre() {
-        return nonSousGenre;
+
+    
+    public String getNomSousGenre() {
+        return nomSousGenre;
     }
 
     public Enum getGenre() {
@@ -31,7 +33,7 @@ public class SousGenre {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 19 * hash + Objects.hashCode(this.nonSousGenre);
+        hash = 19 * hash + Objects.hashCode(this.nomSousGenre);
         hash = 19 * hash + Objects.hashCode(this.genre);
         return hash;
     }
@@ -48,7 +50,7 @@ public class SousGenre {
             return false;
         }
         final SousGenre other = (SousGenre) obj;
-        if (!Objects.equals(this.nonSousGenre, other.nonSousGenre)) {
+        if (!Objects.equals(this.nomSousGenre, other.nomSousGenre)) {
             return false;
         }
         return Objects.equals(this.genre, other.genre);
@@ -56,7 +58,7 @@ public class SousGenre {
 
     @Override
     public String toString() {
-        return "SousGenre{" + "nonSousGenre=" + nonSousGenre + ", genre=" + genre + '}';
+        return "SousGenre{" + "SousGenre=" + nomSousGenre + ", genre=" + genre + '}';
     }
     
     

@@ -5,10 +5,7 @@
 package suivilocationvideos;
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -18,18 +15,15 @@ import java.util.Objects;
 public class Abonne {
     
     private String nom;
-    private LocalDate dateNaissance;
+    private String dateNaissance;
     private String sexe;
-    private Tranche revenu;
-    
-    private Map<String, Abonne> abonnes;
+    private int revenu;
 
-    public Abonne(String nom, LocalDate dateNaissance, String sexe, Tranche revenu) {
+    public Abonne(String nom, String dateNaissance, String sexe, int revenu) {
         this.nom = nom;
         this.dateNaissance = dateNaissance;
         this.sexe = sexe;
         this.revenu = revenu;
-        this.abonnes = new HashMap<>();
     }
 
     public String getNom() {
@@ -40,7 +34,7 @@ public class Abonne {
         this.nom = nom;
     }
 
-    public void setDateNaissance(LocalDate dateNaissance) {
+    public void setDateNaissance(String dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 
@@ -52,26 +46,42 @@ public class Abonne {
         this.sexe = sexe;
     }
 
-    public Tranche getRevenu() {
+    public int getRevenu() {
         return revenu;
     }
 
-    public void setRevenu(Tranche revenu) {
+    public void setRevenu(int revenu) {
         this.revenu = revenu;
     }
+
+    
     
     public int getAge(){
-        LocalDate date = LocalDate.now();
-        return Period.between(this.dateNaissance, date).getYears();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        // Parse the birthday String into a LocalDate
+        LocalDate birthday = LocalDate.parse(dateNaissance, formatter);
+        LocalDate currentDate = LocalDate.now();
+        
+        int age = currentDate.getYear() - birthday.getYear();
+        
+        if (currentDate.getMonthValue() < birthday.getMonthValue() ||
+            (currentDate.getMonthValue() == birthday.getMonthValue() &&
+             currentDate.getDayOfMonth() < birthday.getDayOfMonth())) {
+            age--; // Subtract 1 if the birthday hasn't occurred yet this year
+        }
+        
+        
+        return age;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + Objects.hashCode(this.nom);
-        hash = 61 * hash + Objects.hashCode(this.dateNaissance);
-        hash = 61 * hash + Objects.hashCode(this.sexe);
-        hash = 61 * hash + Objects.hashCode(this.revenu);
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.nom);
+        hash = 67 * hash + Objects.hashCode(this.dateNaissance);
+        hash = 67 * hash + Objects.hashCode(this.sexe);
+        hash = 67 * hash + Objects.hashCode(this.revenu);
         return hash;
     }
 
@@ -98,16 +108,12 @@ public class Abonne {
         }
         return this.revenu == other.revenu;
     }
-    
-    
-    
-    public void addAbonne(String _Nom, LocalDate _DateNaissance, String _Sexe, Tranche _Revenu){
-        abonnes.put(_Nom, new Abonne(_Nom, _DateNaissance, _Sexe, _Revenu));
+
+    @Override
+    public String toString() {
+        return "Abonne{" + "nom=" + nom + ", age=" + getAge() + ", sexe=" + sexe + ", revenu=" + revenu + '}';
     }
     
-    public Abonne findAbonne(String _Nom){
-        Abonne _Abonne = abonnes.get(_Nom);
-        return _Abonne;
-    }
+    
     
 }

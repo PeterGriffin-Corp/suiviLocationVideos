@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package projet_java;
+package suivilocationvideos;
+
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +18,7 @@ public class Location {
     private final String id;
     private Date dateDebut;
     private Date dateFin;
-    private Map<Abonné, String> abonnes;
+    private Map<Abonne, String> abonnes;
     private final Map<Film, String> films;
 
     public Location(String aId){
@@ -28,7 +30,7 @@ public class Location {
     public Location(String aId, Date aDateDebut, Date aDateFin) {
         this.id = aId;
         this.dateDebut = aDateDebut;
-        this.dateFin = aDateFin;
+        this.dateFin = null;
         abonnes = new HashMap<>();
         films = new HashMap<>();
     }
@@ -51,11 +53,11 @@ public class Location {
         this.dateFin = aDateFin;
     }
 
-    public Map<Abonné, String> getAbonnes() {
+    public Map<Abonne, String> getAbonnes() {
         return abonnes;
     }
 
-    public void setAbonnes(Map<Abonné, String> aAbonnes) {
+    public void setAbonnes(Map<Abonne, String> aAbonnes) {
         this.abonnes = aAbonnes;
     }
 
@@ -63,12 +65,12 @@ public class Location {
         return films;
     }
 
-    public void addPret(final Film aFilm, Date aDateDebut, Date aDateFin,  String aTitre, Abonné aAbonné, String aNom) {
+    public void addPret(final Film aFilm, Date aDateDebut, Date aDateFin,  String aTitre, Abonne aAbonne, String aNom) {
         films.put(aFilm, aTitre);
-        abonnes.put(aAbonné, aNom);
+        abonnes.put(aAbonne, aNom);
     }
 
-    public void removePret(final Film aFilm, Abonné aAbonné,Date aDateDebut, Date aDateFin) {
+    public void removePret(final Film aFilm, Abonne aAbonné,Date aDateDebut, Date aDateFin) {
         films.remove(aFilm);
         abonnes.remove(aAbonné);
     }
