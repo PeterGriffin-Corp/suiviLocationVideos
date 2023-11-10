@@ -4,6 +4,7 @@
  */
 package suivilocationvideos;
 
+
 /**
  *
  * @author Achraf
@@ -14,7 +15,8 @@ public class SuiviLocationVideos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Abonne abonne = new Abonne("Guangyi","11/07/1996" , "M", 2);
+        System.out.println(abonne);
     }
     
 }
