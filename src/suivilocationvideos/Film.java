@@ -18,11 +18,19 @@ public class Film {
     private final String typeFilm;
     private final List<Acteur> acteurs;
 
-    public Film(String aTitre, String aTypeFilm){
-        this.titre = aTitre;
-        this.typeFilm = aTypeFilm;
-        acteurs = new ArrayList<>();
+    public Film(String titre, String typeFilm) {
+        this.titre = titre;
+        this.typeFilm = typeFilm;
+        this.acteurs = new ArrayList<>();
     }
+    
+    public Film(String titre, String typeFilm, List<Acteur> acteurs) {
+        this.titre = titre;
+        this.typeFilm = typeFilm;
+        this.acteurs = acteurs;
+    }
+
+    
     
     
     public String getTitre() {
@@ -36,7 +44,10 @@ public class Film {
     public List<Acteur> getActeurs() {
         return acteurs;
     }
-
+    
+    
+    
+    
     
     @Override
     public int hashCode() {
