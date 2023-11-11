@@ -5,8 +5,8 @@
 package suivilocationvideos;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,12 +16,12 @@ import java.util.Objects;
 public class Film {
     private final String titre;
     private final String typeFilm;
-    private final Map<Acteur, String> acteurs;
+    private final List<Acteur> acteurs;
 
     public Film(String aTitre, String aTypeFilm){
         this.titre = aTitre;
         this.typeFilm = aTypeFilm;
-        acteurs = new HashMap<>();
+        acteurs = new ArrayList<>();
     }
     
     
@@ -33,9 +33,10 @@ public class Film {
         return typeFilm;
     }
 
-    public Map<Acteur, String> getActeurs() {
+    public List<Acteur> getActeurs() {
         return acteurs;
     }
+
     
     @Override
     public int hashCode() {
@@ -45,8 +46,8 @@ public class Film {
         return hash;
     }
 
-    public void addActeur(final Acteur aActeur, final String aNom) {
-        acteurs.put(aActeur, aNom);
+    public void addActeur(final String aNom, final String aPrenom) {
+        acteurs.add(new Acteur(aNom, aPrenom));
     }
 
     public void removeActeur(final Acteur aActeur) {
