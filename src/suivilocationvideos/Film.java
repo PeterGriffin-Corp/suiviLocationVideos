@@ -51,13 +51,27 @@ public class Film {
     
     
     public void addActeur(final String aNom, final String aPrenom) {
-        acteurs.add(new Acteur(aNom, aPrenom));
+    Acteur nouvelActeur = new Acteur(aNom, aPrenom);
+
+    // Vérifier si l'acteur n'existe pas déjà dans la liste
+    if (!acteurs.contains(nouvelActeur)) {
+        acteurs.add(nouvelActeur);
+        System.out.println("L'acteur a été ajouté avec succès.");
+    } else {
+        System.out.println("L'acteur existe déjà dans la liste.");
+        }
     }
+
 
     public void removeActeur(final Acteur aActeur) {
         acteurs.remove(aActeur);
+        System.out.println("L'acteur a été supprimé avec succès.");
     }
-
+    
+    public Film getFilmByTitle(final String _Titre){
+        return null;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -84,6 +98,7 @@ public class Film {
     public String toString() {
         return "Film{" + "titre=" + titre + ", typeFilm=" + typeFilm + ", sousGenre=" + sousGenre + ", acteurs=" + acteurs + '}';
     }
+    
     
     
 
