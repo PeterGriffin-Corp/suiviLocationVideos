@@ -4,6 +4,9 @@
  */
 package suivilocationvideos;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -15,6 +18,7 @@ import java.util.stream.Collectors;
 public class Similarity {
     
     private List<Abonne> abonnes;
+    private Map<Abonne, List<Location>> locationFilm;
 
     public Similarity() {
     }
@@ -59,9 +63,54 @@ public class Similarity {
     
     public List<Film> getListFilmsSim(final List<Film> films, final Film _Film){
         
-        films.stream().distinct().
+        return films.stream().sorted(
+                Comparator.comparing((Film film) -> getSimilarityFilm(film, _Film))
+        ).collect(Collectors.toList());
+    }
+    
+    private Map<Abonne, List<Film>> getListFilmLoyeparAbonne(List<Abonne> abonnes){
+        Map<Abonne, List<Film>> listFilmParAbonne = new HashMap<>();
+        for (Abonne abonne : abonnes) {
+            List<Film> films = locationFilm.get(abonne).stream()
+                    .flatMap(location -> location.getFilms().values().stream())
+                    .collect(Collectors.toList());
+            listFilmParAbonne.put(abonne, films);
+        }
+        return listFilmParAbonne;
+    }
+    
+    private int calculateMaxSimilarity(List<Film> films) {
+        return films.stream()
+                .mapToInt(film1 -> films.stream()
+                        .filter(film2 -> !film1.equals(film2))
+                        .mapToInt(film2 -> getSimilarityFilm(film1, film2))
+                        .max()
+                        .orElse(0))
+                .max()
+                .orElse(0);
+    }
+    
+    public List<Abonne> getListAbonneCurieux(List<Abonne> abonnes){
         
-        return null;
+        Map<Abonne, List<Film>> listFilmParAbonne = getListFilmLoyeparAbonne(abonnes);
+        Map<Abonne, Integer> abonnesSimilarityMaxScore = new HashMap<>();
+        
+        for (Map.Entry<Abonne, List<Film>> entry : listFilmParAbonne.entrySet()) {
+            Abonne abonne = entry.getKey();
+            List<Film> films = entry.getValue();
+
+            int maxSimilarity = calculateMaxSimilarity(films);
+
+            // Put the result in the map
+            abonnesSimilarityMaxScore.put(abonne, maxSimilarity);
+        }
+        
+        return abonnesSimilarityMaxScore.entrySet()
+            .stream()
+            .sorted((entry1, entry2) -> Integer.compare(entry2.getValue(), entry1.getValue()))
+            .map(Map.Entry::getKey)
+            .collect(Collectors.toList());
+        
     }
     
 }

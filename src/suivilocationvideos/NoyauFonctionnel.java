@@ -18,6 +18,7 @@ public class NoyauFonctionnel {
  
     private final Map<String, Abonne> abonnes;
     private final Map<String, Film> films;
+   
     
     
     public NoyauFonctionnel(Map<String, Abonne> abonnes, List<Film> films) {
