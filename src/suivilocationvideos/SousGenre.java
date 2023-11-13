@@ -20,7 +20,6 @@ public class SousGenre {
     }
 
     
-
     
     public String getNomSousGenre() {
         return nomSousGenre;
