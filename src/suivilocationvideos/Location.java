@@ -18,8 +18,8 @@ public class Location {
     private final String id;
     private Date dateDebut;
     private Date dateFin;
-    private Map<Abonne, String> abonnes;
-    private final Map<Film, String> films;
+    private Map<String, Abonne> abonnes;
+    private final Map<String, Film> films;
 
     public Location(String aId){
         this.id = aId;
@@ -53,17 +53,19 @@ public class Location {
         this.dateFin = aDateFin;
     }
 
-    public Map<Abonne, String> getAbonnes() {
+    public Map<String, Abonne> getAbonnes() {
         return abonnes;
     }
 
-    public void setAbonnes(Map<Abonne, String> aAbonnes) {
-        this.abonnes = aAbonnes;
+    public void setAbonnes(Map<String, Abonne> abonnes) {
+        this.abonnes = abonnes;
     }
 
-    public Map<Film, String> getFilms() {
+    public Map<String, Film> getFilms() {
         return films;
     }
+
+    
 
     public void addPret(final Film aFilm, Date aDateDebut, Date aDateFin,  String aTitre, Abonne aAbonne, String aNom) {
         films.put(aFilm, aTitre);
