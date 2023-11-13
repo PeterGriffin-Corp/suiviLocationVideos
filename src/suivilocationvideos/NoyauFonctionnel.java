@@ -17,26 +17,29 @@ import java.util.Map;
 public class NoyauFonctionnel {
  
     private final Map<String, Abonne> abonnes;
-    private final List<Film> films;
+    private final Map<String, Film> films;
     
     
+    public NoyauFonctionnel(Map<String, Abonne> abonnes, List<Film> films) {
+        this.abonnes = new HashMap<>();
+        this.films = new HashMap<>();
+    }
     
     
+    public Film findFilm(String _Titre){
+        return films.get(_Titre);
+    }
+       
     
-    
-    /*
-    public void addAbonne(String _Nom, LocalDate _DateNaissance, String _Sexe, Tranche _Revenu){
-        abonnes.put(_Nom, new Abonne(_Nom, _DateNaissance, _Sexe, _Revenu));
+    public void addAbonne(String _Nom, String _DateNaissance, String _Sexe, int trancheRevenu){
+        abonnes.put(_Nom, new Abonne(_Nom, _DateNaissance, _Sexe, trancheRevenu));
     }
     
     public Abonne findAbonne(String _Nom){
         Abonne _Abonne = abonnes.get(_Nom);
         return _Abonne;
     }
-    */
+    
 
-    public NoyauFonctionnel(Map<String, Abonne> abonnes, List<Film> films) {
-        this.abonnes = new HashMap<>();
-        this.films = new ArrayList<>();
-    }
+    
 }

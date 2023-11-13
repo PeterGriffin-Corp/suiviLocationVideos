@@ -16,14 +16,26 @@ import java.util.Objects;
 public class Film {
     private final String titre;
     private final String typeFilm;
+    private final SousGenre sousGenre;
     private final List<Acteur> acteurs;
 
-    public Film(String aTitre, String aTypeFilm){
-        this.titre = aTitre;
-        this.typeFilm = aTypeFilm;
-        acteurs = new ArrayList<>();
+    public Film(String _Titre, String _TypeFilm, SousGenre _SousGenre) {
+        this.titre = _Titre;
+        this.typeFilm = _TypeFilm;
+        this.sousGenre = _SousGenre;
+        this.acteurs = new ArrayList<>();
     }
-    
+
+    public SousGenre getSousGenre() {
+        return sousGenre;
+    }
+
+    public Film(String titre, String typeFilm, SousGenre sousGenre, List<Acteur> acteurs) {
+        this.titre = titre;
+        this.typeFilm = typeFilm;
+        this.sousGenre = sousGenre;
+        this.acteurs = acteurs;
+    }
     
     public String getTitre() {
         return titre;
@@ -36,16 +48,8 @@ public class Film {
     public List<Acteur> getActeurs() {
         return acteurs;
     }
-
     
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 67 * hash + Objects.hashCode(this.titre);
-        hash = 67 * hash + Objects.hashCode(this.typeFilm);
-        return hash;
-    }
-
+    
     public void addActeur(final String aNom, final String aPrenom) {
         acteurs.add(new Acteur(aNom, aPrenom));
     }
@@ -53,7 +57,14 @@ public class Film {
     public void removeActeur(final Acteur aActeur) {
         acteurs.remove(aActeur);
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.titre);
+        return hash;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -66,16 +77,15 @@ public class Film {
             return false;
         }
         final Film other = (Film) obj;
-        if (!Objects.equals(this.titre, other.titre)) {
-            return false;
-        }
-        return Objects.equals(this.typeFilm, other.typeFilm);
+        return Objects.equals(this.titre, other.titre);
     }
 
     @Override
     public String toString() {
-        return "Film{" + "titre=" + titre + ", typeFilm=" + typeFilm + ", acteurs=" + acteurs + '}';
+        return "Film{" + "titre=" + titre + ", typeFilm=" + typeFilm + ", sousGenre=" + sousGenre + ", acteurs=" + acteurs + '}';
     }
+    
+    
 
 
   }
