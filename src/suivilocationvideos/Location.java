@@ -5,8 +5,12 @@
 package suivilocationvideos;
 
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -17,23 +21,18 @@ import java.util.Objects;
 public class Location {
     private final String id;
     private Date dateDebut;
-    private Date dateFin;
-    private Map<String, Abonne> abonnes;
-    private final Map<String, Film> films;
+    private Abonne abonne;
+    private final Film film;
 
-    public Location(String aId){
-        this.id = aId;
-        abonnes = new HashMap<>();
-        films = new HashMap<>();
+    
+    public Location(String id, Abonne _Abonne, Film _Film) {
+        this.id = id;
+        this.abonne = _Abonne;
+        this.film = _Film;
+        this.dateDebut = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.abonne.setHistoryFilm(_Film);
     }
-
-    public Location(String aId, Date aDateDebut, Date aDateFin) {
-        this.id = aId;
-        this.dateDebut = aDateDebut;
-        this.dateFin = null;
-        abonnes = new HashMap<>();
-        films = new HashMap<>();
-    }
+    
 
     public Date getDateDebut() {
         return dateDebut;
@@ -43,47 +42,29 @@ public class Location {
         this.dateDebut = aDateDebut;
     }
 
-    public Date getDateFin() {
-        return dateFin;
+    public Abonne getAbonne() {
+        return abonne;
     }
+
+    public void setAbonne(Abonne abonne) {
+        this.abonne = abonne;
+    }
+
     public String getId() {
         return id;
     }
-    public void setDateFin(Date aDateFin) {
-        this.dateFin = aDateFin;
+
+    public Film getFilm() {
+        return film;
     }
-
-    public Map<String, Abonne> getAbonnes() {
-        return abonnes;
-    }
-
-    public void setAbonnes(Map<String, Abonne> abonnes) {
-        this.abonnes = abonnes;
-    }
-
-    public Map<String, Film> getFilms() {
-        return films;
-    }
-
-    
-
-    public void addPret(final Film aFilm, Date aDateDebut, Date aDateFin,  String aTitre, Abonne aAbonne, String aNom) {
-        films.put(aFilm, aTitre);
-        abonnes.put(aAbonne, aNom);
-    }
-
-    public void removePret(final Film aFilm, Abonne aAbonné,Date aDateDebut, Date aDateFin) {
-        films.remove(aFilm);
-        abonnes.remove(aAbonné);
-    }
-
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.dateDebut);
-        hash = 89 * hash + Objects.hashCode(this.dateFin);
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.dateDebut);
+        hash = 97 * hash + Objects.hashCode(this.abonne);
+        hash = 97 * hash + Objects.hashCode(this.film);
         return hash;
     }
 
@@ -105,14 +86,16 @@ public class Location {
         if (!Objects.equals(this.dateDebut, other.dateDebut)) {
             return false;
         }
-        return Objects.equals(this.dateFin, other.dateFin);
+        if (!Objects.equals(this.abonne, other.abonne)) {
+            return false;
+        }
+        return Objects.equals(this.film, other.film);
     }
 
     @Override
     public String toString() {
-        return "Location{" + "id=" + id + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", abonnes=" + abonnes + ", films=" + films + '}';
+        return "Location{" + "id=" + id + ", dateDebut=" + dateDebut + ", abonne=" + abonne + ", film=" + film + '}';
     }
-
 
     
 }
