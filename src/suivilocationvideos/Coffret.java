@@ -45,7 +45,7 @@ public class Coffret {
 
         // Compter le nombre d'occurrences de chaque genre
         for (Film film : listFilm) {
-            Enum genre = film.getSousGenre().getGenre();
+            Enum genre = film.getSousGenre().;
             genreCount.put(genre, genreCount.getOrDefault(genre, 0) + 1);
         }
 
