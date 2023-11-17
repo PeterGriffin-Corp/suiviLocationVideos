@@ -6,6 +6,8 @@ package suivilocationvideos;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -17,13 +19,16 @@ public class Abonne {
     private String nom;
     private String dateNaissance;
     private String sexe;
-    private int revenu;
+    private int fourchetteRevenu;
+    private List<Film> historyFilm;
 
     public Abonne(String nom, String dateNaissance, String sexe, int revenu) {
         this.nom = nom;
         this.dateNaissance = dateNaissance;
         this.sexe = sexe;
-        this.revenu = revenu;
+        this.fourchetteRevenu = revenu;
+        if(this.historyFilm == null)
+            this.historyFilm = new ArrayList<>();
     }
 
     public String getNom() {
@@ -46,12 +51,21 @@ public class Abonne {
         this.sexe = sexe;
     }
 
-    public int getRevenu() {
-        return revenu;
+    public int getFourchetteRevenu() {
+        return fourchetteRevenu;
     }
 
-    public void setRevenu(int revenu) {
-        this.revenu = revenu;
+    public void setFourchetteRevenu(int fourchetteRevenu) {
+        this.fourchetteRevenu = fourchetteRevenu;
+    }
+
+    public List<Film> getHistoryFilm() {
+        return historyFilm;
+    }
+
+    public void setHistoryFilm(Film _Films) {
+        if(!this.historyFilm.contains(_Films))
+            this.historyFilm.add(_Films);
     }
 
     
@@ -81,7 +95,7 @@ public class Abonne {
         hash = 67 * hash + Objects.hashCode(this.nom);
         hash = 67 * hash + Objects.hashCode(this.dateNaissance);
         hash = 67 * hash + Objects.hashCode(this.sexe);
-        hash = 67 * hash + Objects.hashCode(this.revenu);
+        hash = 67 * hash + Objects.hashCode(this.fourchetteRevenu);
         return hash;
     }
 
@@ -106,12 +120,12 @@ public class Abonne {
         if (!Objects.equals(this.dateNaissance, other.dateNaissance)) {
             return false;
         }
-        return this.revenu == other.revenu;
+        return this.fourchetteRevenu == other.fourchetteRevenu;
     }
 
     @Override
     public String toString() {
-        return "Abonne{" + "nom=" + nom + ", age=" + getAge() + ", sexe=" + sexe + ", revenu=" + revenu + '}';
+        return "Abonne{" + "nom=" + nom + ", age=" + getAge() + ", sexe=" + sexe + ", revenu=" + fourchetteRevenu + '}';
     }
     
     

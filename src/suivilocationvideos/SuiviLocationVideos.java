@@ -1,11 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+
 package suivilocationvideos;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -18,14 +17,14 @@ public class SuiviLocationVideos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Abonne abonne = new Abonne("Guangyi","11/07/1996" , "M", 2);
+        Abonne abonne1 = new Abonne("Guangyi","11/07/1996" , "M", 2);
+        Abonne abonne2 = new Abonne("Achraf","01/01/1999" , "M", 2);
+        Abonne abonne3 = new Abonne("Femme","01/01/1999" , "F", 3);
        
-        System.out.println(abonne);
+//        System.out.println(abonne1);
         
         Similarity sim = new Similarity();
-        
-        SousGenre sousGenre1 = new SousGenre("musique", Genre.COMEDIE);
-        SousGenre sousGenre2 = new SousGenre("Romance", Genre.COMEDIE);
+       
         
         Acteur acteur1 = new Acteur("A", "B");
         Acteur acteur2 = new Acteur("C", "D");
@@ -44,21 +43,90 @@ public class SuiviLocationVideos {
         List<Acteur> listActeurs3 = new ArrayList<>();
         listActeurs3.add(acteur4);
         
-        Film film1 = new Film("Film1", "Couleur", sousGenre1, listActeurs1);
-        Film film2 = new Film("Film2", "Couleur", sousGenre2, listActeurs2);
-        Film film3 = new Film("Film3", "Couleur", sousGenre1, listActeurs3);        
         
-        List<Film> films = new ArrayList<>();
-        films.add(film1);
-        films.add(film2);
-        films.add(film3);
-
+//        System.out.println(sim.getSimilarityFilm(film3, film1));
+//        System.out.println(sim.getSimilarityFilm(film2, film1));
+//        
+//        System.out.println(sim.getListFilmsSim(films, film1));
 
         
-        System.out.println(sim.getSimilarityFilm(film3, film1));
-        System.out.println(sim.getSimilarityFilm(film2, film1));
+
         
-        System.out.println(sim.getListFilmsSim(films, film1));
+        
+        
+        //sim.addFilmAFilmsLoyerParAbonne(abonne1, loc1);
+        
+        //System.out.println(sim.getFilmsLoyeParAbonne());
+        //System.out.println(loc1);
+        
+        //System.out.println(abonne1.getHistoryFilm());
+        //Location loc5 = new Location("5", abonne1, films_lot4);
+        //System.out.println(abonne1.getHistoryFilm());
+        
+        NoyauFonctionnel nf = new NoyauFonctionnel();
+        
+        nf.addAbonne("Guy", "11/07/1996", "M", 1);
+        nf.addAbonne("Ash", "27/06/1999", "M", 1);
+        nf.addAbonne("Jasmine", "01/01/1992", "F", 5);
+        
+        nf.addFilm("Film1", "Couleur", SousGenre.adventure, listActeurs1);
+        nf.addFilm("Film2", "Couleur", SousGenre.music, listActeurs2);
+        nf.addFilm("Film3", "Couleur", SousGenre.western, listActeurs3);
+        nf.addFilm("Film4", "Couleur", SousGenre.western, listActeurs1);
+        nf.addFilm("Film5", "Couleur", SousGenre.romance, listActeurs2);
+        nf.addFilm("Film6", "Couleur", SousGenre.romance, listActeurs3); 
+        
+        List<String> films_lot1 = new ArrayList<>();
+        films_lot1.add("Film1");
+        films_lot1.add("Film2");
+        
+        List<String> films_lot2 = new ArrayList<>();
+        films_lot2.add("Film3");
+        films_lot2.add("Film2");
+        
+        List<String> films_lot3 = new ArrayList<>();
+        films_lot3.add("Film4");
+        films_lot3.add("Film5");
+        
+        List<String> films_lot4 = new ArrayList<>();
+        films_lot4.add("Film6");
+        films_lot4.add("Film2");
+        
+        
+        nf.enregistrerPretFilm("Guy", films_lot1);
+        nf.enregistrerPretFilm("Guy", films_lot2);
+        nf.enregistrerPretFilm("Ash", films_lot2);
+        nf.enregistrerPretFilm("Jasmine", films_lot4);
+        
+        
+        List<Film> _Films = new ArrayList<>();
+        _Films.add(new Film("Film1", "Couleur", SousGenre.adventure, listActeurs1));
+        _Films.add(new Film("Film2", "Couleur", SousGenre.music, listActeurs2));
+        _Films.add(new Film("Film3", "Couleur", SousGenre.western, listActeurs3));
+        _Films.add(new Film("Film4", "Couleur", SousGenre.western, listActeurs1));
+        
+        List<Abonne> _Abonnes = new ArrayList<>();
+        _Abonnes.add(new Abonne("Guy", "11/07/1996", "M", 1));
+        _Abonnes.add(new Abonne("Ash", "27/06/1999", "M", 1));
+        _Abonnes.add(new Abonne("Jasmine", "01/01/1992", "F", 5));
+        
+        //System.err.println(_Abonnes);
+        
+        //System.out.println(nf.listFilmsType(50));
+        //System.out.println(nf.getListFilmsSim("Film1"));
+        
+        //System.out.println(nf.getSimilarityFilm(_Films.get(0), _Films.get(3)));
+        //System.out.println(nf.getSimilarityFilm(_Films.get(0), _Films.get(2)));
+        //System.out.println(nf.getSimilarityFilm(_Films.get(0), _Films.get(1)));
+        
+        
+        
+//        System.out.println(nf.getListAbonnesSim("Guy"));
+//        
+//        System.out.println(nf.getSimilarityAbonne(_Abonnes.get(0), _Abonnes.get(1)));
+//        System.out.println(nf.getSimilarityAbonne(_Abonnes.get(0), _Abonnes.get(2)));
+        
+         System.out.println(nf.getListAbonneCurieux());
         
     }
     

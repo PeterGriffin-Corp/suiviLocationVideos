@@ -6,9 +6,19 @@ package suivilocationvideos;
 
 /**
  *
- * @author Achraf
+ * @author Achraf, Guangyi Huang
  */
 public enum Genre {
     ACTION,
-    COMEDIE
+    COMEDIE;
+
+    public static Genre getACTION() {
+        return ACTION;
+    }
+
+    public static Genre getCOMEDIE() {
+        return COMEDIE;
+    }
+    
+    
 }
