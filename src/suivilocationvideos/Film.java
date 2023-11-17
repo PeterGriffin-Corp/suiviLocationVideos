@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  *
- * @author jlema
+ * @author Achraf, Guangyi, Justin
  */
 public class Film {
     private final String titre;

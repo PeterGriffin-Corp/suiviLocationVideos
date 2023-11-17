@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 /**
  *
- * @author guangyi Huang
+ * @author Achraf, Guangyi, Justin
  */
 public class NoyauFonctionnel {
  
@@ -109,7 +109,7 @@ public class NoyauFonctionnel {
             if (filmOptional.isPresent()) {
                 Film _Film = filmOptional.get();
                 String id = generateID(_NomAbonne, _TitreFilm);
-                Location loc = new Location(id, _Abonne, _Film);
+                Location loc = new Location (id, _Abonne, _Film);
                 System.out.printf("Le prêt du film %s par %s a été loué sous l'id: %s\n", _TitreFilm, _NomAbonne, id);
             } else {
                 System.out.println("Nous ne pouvons pas enregistrer le prêt du film car le film n'est pas enregistré\n");
@@ -302,6 +302,10 @@ public class NoyauFonctionnel {
         }
         
         return filmsTypes;
+    }
+    
+    public Coffret creatCoffret(String titre, List<Acteur> listActeur, List<Film> listFilm, boolean bonus) {
+        return new Coffret(titre, listActeur, listFilm, bonus);
     }
     
 }

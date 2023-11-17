@@ -8,7 +8,7 @@ import java.util.Objects;
 
 /**
  *
- * @author jlema
+ * @author Achraf, Guangyi, Justin
  */
 public class Acteur {
     private final String nom;

@@ -6,7 +6,7 @@ package suivilocationvideos;
 
 /**
  *
- * @author Achraf, Guangyi Huang
+ * @author Achraf, Guangyi, Justin
  */
 public enum Genre {
     ACTION,

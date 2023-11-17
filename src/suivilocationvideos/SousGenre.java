@@ -7,7 +7,7 @@ package suivilocationvideos;
 
 /**
  *
- * @author Achraf, Guangyi HUANG
+ * @author Achraf, Guangyi, Justin
  */
 public enum SousGenre {
     western(Genre.ACTION),

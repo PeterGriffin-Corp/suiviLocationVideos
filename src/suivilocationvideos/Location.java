@@ -7,28 +7,26 @@ package suivilocationvideos;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
  *
- * @author jlema
+ * @author JAchraf, Guangyi, Justin
  */
 public class Location {
     private final String id;
     private Date dateDebut;
     private Abonne abonne;
     private final Film film;
+    private final Coffret coffret;
 
     
-    public Location(String id, Abonne _Abonne, Film _Film) {
+    public Location(String id, Abonne _Abonne, Film _Film, Coffret _Coffret) {
         this.id = id;
         this.abonne = _Abonne;
         this.film = _Film;
+        this.coffret = _Coffret;
         this.dateDebut = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.abonne.setHistoryFilm(_Film);
     }
@@ -58,13 +56,18 @@ public class Location {
         return film;
     }
 
+    public Coffret getCoffret() {
+        return coffret;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.dateDebut);
-        hash = 97 * hash + Objects.hashCode(this.abonne);
-        hash = 97 * hash + Objects.hashCode(this.film);
+        hash = 71 * hash + Objects.hashCode(this.id);
+        hash = 71 * hash + Objects.hashCode(this.dateDebut);
+        hash = 71 * hash + Objects.hashCode(this.abonne);
+        hash = 71 * hash + Objects.hashCode(this.film);
+        hash = 71 * hash + Objects.hashCode(this.coffret);
         return hash;
     }
 
@@ -89,13 +92,16 @@ public class Location {
         if (!Objects.equals(this.abonne, other.abonne)) {
             return false;
         }
-        return Objects.equals(this.film, other.film);
+        if (!Objects.equals(this.film, other.film)) {
+            return false;
+        }
+        return Objects.equals(this.coffret, other.coffret);
     }
 
     @Override
     public String toString() {
-        return "Location{" + "id=" + id + ", dateDebut=" + dateDebut + ", abonne=" + abonne + ", film=" + film + '}';
+        return "Location{" + "id=" + id + ", dateDebut=" + dateDebut + ", abonne=" + abonne + ", film=" + film + ", coffret=" + coffret + '}';
     }
-
+    
     
 }
