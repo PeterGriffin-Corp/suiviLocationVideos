@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+
 package suivilocationvideos;
 
 import java.util.ArrayList;
@@ -46,28 +43,6 @@ public class SuiviLocationVideos {
         List<Acteur> listActeurs3 = new ArrayList<>();
         listActeurs3.add(acteur4);
         
-        Film film1 = new Film("Film1", "Couleur", SousGenre.adventure, listActeurs1);
-        Film film2 = new Film("Film2", "Couleur", SousGenre.music, listActeurs2);
-        Film film3 = new Film("Film3", "Couleur", SousGenre.western, listActeurs3); 
-        
-        Film film4 = new Film("Film4", "Couleur", SousGenre.western, listActeurs1);
-        Film film5 = new Film("Film5", "Couleur", SousGenre.romance, listActeurs2);
-        Film film6 = new Film("Film6", "Couleur", SousGenre.romance, listActeurs3); 
-        
-        List<Film> films_1 = new ArrayList<>();
-        films_1.add(film1);
-        films_1.add(film2);
-        
-        List<Film> films_2 = new ArrayList<>();
-        films_2.add(film3);
-
-        List<Film> films_3 = new ArrayList<>();
-        films_3.add(film1);
-        films_3.add(film2);
-        
-        List<Film> films_4 = new ArrayList<>();
-        films_4.add(film4);
-        films_4.add(film5);
         
 //        System.out.println(sim.getSimilarityFilm(film3, film1));
 //        System.out.println(sim.getSimilarityFilm(film2, film1));
@@ -75,18 +50,7 @@ public class SuiviLocationVideos {
 //        System.out.println(sim.getListFilmsSim(films, film1));
 
         
-        
-        Location loc1 = new Location("1", abonne1, films_1);
-        Location loc2 = new Location("2", abonne1, films_2);
-        
-        Location loc3 = new Location("3", abonne2, films_3);
-        Location loc4 = new Location("4", abonne3, films_4);
-        
-        
-        List<Abonne> abonnes = new ArrayList<>();
-        abonnes.add(abonne1);
-        abonnes.add(abonne2);
-        abonnes.add(abonne3);
+
         
         
         
@@ -96,14 +60,73 @@ public class SuiviLocationVideos {
         //System.out.println(loc1);
         
         //System.out.println(abonne1.getHistoryFilm());
-        Location loc5 = new Location("5", abonne1, films_4);
+        //Location loc5 = new Location("5", abonne1, films_lot4);
         //System.out.println(abonne1.getHistoryFilm());
         
         NoyauFonctionnel nf = new NoyauFonctionnel();
         
-        nf.addAbonne("GUY", "16/07/1996", "M", 1);
+        nf.addAbonne("Guy", "11/07/1996", "M", 1);
+        nf.addAbonne("Ash", "27/06/1999", "M", 1);
+        nf.addAbonne("Jasmine", "01/01/1992", "F", 5);
         
-        nf.findAbonne("Achraf");
+        nf.addFilm("Film1", "Couleur", SousGenre.adventure, listActeurs1);
+        nf.addFilm("Film2", "Couleur", SousGenre.music, listActeurs2);
+        nf.addFilm("Film3", "Couleur", SousGenre.western, listActeurs3);
+        nf.addFilm("Film4", "Couleur", SousGenre.western, listActeurs1);
+        nf.addFilm("Film5", "Couleur", SousGenre.romance, listActeurs2);
+        nf.addFilm("Film6", "Couleur", SousGenre.romance, listActeurs3); 
+        
+        List<String> films_lot1 = new ArrayList<>();
+        films_lot1.add("Film1");
+        films_lot1.add("Film2");
+        
+        List<String> films_lot2 = new ArrayList<>();
+        films_lot2.add("Film3");
+        films_lot2.add("Film2");
+        
+        List<String> films_lot3 = new ArrayList<>();
+        films_lot3.add("Film4");
+        films_lot3.add("Film5");
+        
+        List<String> films_lot4 = new ArrayList<>();
+        films_lot4.add("Film6");
+        films_lot4.add("Film2");
+        
+        
+        nf.enregistrerPretFilm("Guy", films_lot1);
+        nf.enregistrerPretFilm("Guy", films_lot2);
+        nf.enregistrerPretFilm("Ash", films_lot2);
+        nf.enregistrerPretFilm("Jasmine", films_lot4);
+        
+        
+        List<Film> _Films = new ArrayList<>();
+        _Films.add(new Film("Film1", "Couleur", SousGenre.adventure, listActeurs1));
+        _Films.add(new Film("Film2", "Couleur", SousGenre.music, listActeurs2));
+        _Films.add(new Film("Film3", "Couleur", SousGenre.western, listActeurs3));
+        _Films.add(new Film("Film4", "Couleur", SousGenre.western, listActeurs1));
+        
+        List<Abonne> _Abonnes = new ArrayList<>();
+        _Abonnes.add(new Abonne("Guy", "11/07/1996", "M", 1));
+        _Abonnes.add(new Abonne("Ash", "27/06/1999", "M", 1));
+        _Abonnes.add(new Abonne("Jasmine", "01/01/1992", "F", 5));
+        
+        //System.err.println(_Abonnes);
+        
+        //System.out.println(nf.listFilmsType(50));
+        //System.out.println(nf.getListFilmsSim("Film1"));
+        
+        //System.out.println(nf.getSimilarityFilm(_Films.get(0), _Films.get(3)));
+        //System.out.println(nf.getSimilarityFilm(_Films.get(0), _Films.get(2)));
+        //System.out.println(nf.getSimilarityFilm(_Films.get(0), _Films.get(1)));
+        
+        
+        
+//        System.out.println(nf.getListAbonnesSim("Guy"));
+//        
+//        System.out.println(nf.getSimilarityAbonne(_Abonnes.get(0), _Abonnes.get(1)));
+//        System.out.println(nf.getSimilarityAbonne(_Abonnes.get(0), _Abonnes.get(2)));
+        
+         System.out.println(nf.getListAbonneCurieux());
         
     }
     

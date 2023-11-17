@@ -21,7 +21,8 @@ public enum SousGenre {
         this.genre = aGenre;
     }
 
-    public Genre getGenre() {
+    public Genre GetGenre() {
         return genre;
     }
+
 }
