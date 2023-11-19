@@ -8,8 +8,8 @@ $ git clone https://github.com/PeterGriffin-Corp/suiviLocationVideos
 ```
 
 <h2>Diagramme de classe</h2>
-<img src="data/diagramme de classe.jpeg">
+<img src="img/diagramme de classe.jpeg">
 
 <h2>Diagramme de séquences</h2>
-<img src="data/Diagramme de séquences-Interaction abonné.drawio (1).png">
-<img src="data/Diagramme de séquences-Interactions Films.drawio.png">
+<img src="img/Diagramme de séquences-Interaction abonné.drawio (1).png">
+<img src="img/Diagramme de séquences-Interactions Films.drawio.png">
