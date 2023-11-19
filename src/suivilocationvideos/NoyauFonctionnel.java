@@ -344,7 +344,7 @@ public class NoyauFonctionnel {
     }
 
    /**
-   * Retourne la liste des films ayant un public contenu dans un seuil de similiratité indiqué 
+   * Retourne la liste des films ayant un public contenu dans un seuil de similarité indiqué 
    * @author Achraf, Guangyi, Justin
    */   
  
