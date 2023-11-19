@@ -49,7 +49,9 @@ public class Film {
         return acteurs;
     }
     
+
     //Ajouter un nouvel acteur s'il n'existe pas dans la liste
+
     public void addActeur(final String aNom, final String aPrenom) {
     Acteur nouvelActeur = new Acteur(aNom, aPrenom);
 
@@ -63,14 +65,12 @@ public class Film {
     }
 
 //Supprimer l'acteur
+
     public void removeActeur(final Acteur aActeur) {
         acteurs.remove(aActeur);
         System.out.println("L'acteur a été supprimé avec succès.");
     }
     
-    public Film getFilmByTitle(final String _Titre){
-        return null;
-    }
     
     @Override
     public int hashCode() {
@@ -98,9 +98,6 @@ public class Film {
     public String toString() {
         return "Film{" + "titre=" + titre + ", typeFilm=" + typeFilm + ", sousGenre=" + sousGenre + ", acteurs=" + acteurs + '}';
     }
-    
-    
-    
-
-
+   
   }
+

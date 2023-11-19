@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 
 
 /**
- * Création du noyauFonctionnel
+ *
  * @author Achraf, Guangyi, Justin
  */
 public class NoyauFonctionnel {
@@ -28,7 +29,8 @@ public class NoyauFonctionnel {
     private final Map<String, Film> films;
     private final Map<String, Coffret> coffrets;
     private final Map<Abonne, List<Location>> pret;
-//Constructeur
+
+  //Constructeur
     public NoyauFonctionnel() {
         this.abonnes = new HashMap<>();
         this.films = new HashMap<>();
@@ -54,7 +56,7 @@ public class NoyauFonctionnel {
     
     
     
- // Ajout d'un nouvel abonné   
+     // Ajout d'un nouvel abonné  
     public void addAbonne(String _Nom, String _DateNaissance, String _Sexe, int trancheRevenu){
         final Abonne abonned = new Abonne(_Nom, _DateNaissance, _Sexe, trancheRevenu);
         if (!abonnes.containsKey(_Nom)) {
@@ -65,7 +67,8 @@ public class NoyauFonctionnel {
         }
     }
     
-//Regarder si l'abonné existe
+
+  //Regarder si l'abonné existe
     public Optional<Abonne> findAbonne(String _Nom) {
         if (abonnes.containsKey(_Nom)) {
             return Optional.of(abonnes.get(_Nom));
@@ -76,7 +79,7 @@ public class NoyauFonctionnel {
     }
     
     
-//Ajout d'un nouveau film
+  //Ajout d'un nouveau film
     public void addFilm(String _Titre, String _TypeFilm, SousGenre _SousGenre, List<Acteur> _Acteurs) {
         Film nouveauFilm = new Film(_Titre, _TypeFilm, _SousGenre, _Acteurs);
         if (!films.containsKey(_Titre)) {
@@ -86,7 +89,8 @@ public class NoyauFonctionnel {
             System.out.println("Le film existe déja!");
         }
     }
-//Regarder si le film
+
+  //Regarder si le film
     public Optional<Film> findMovie(String _Titre) {
         if (films.containsKey(_Titre)) {
             return Optional.of(films.get(_Titre));
@@ -95,7 +99,8 @@ public class NoyauFonctionnel {
             return Optional.empty();
         }
     } 
-// Génère une ID unique lors d'une location    
+    
+  // Génère une ID unique lors d'une location  
     private static String generateID(String _NomAbonne, String _TitreFilm){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
         String currentDate = LocalDate.now().format(formatter);
@@ -103,16 +108,13 @@ public class NoyauFonctionnel {
         String uniqueID = _NomAbonne + "_" + currentDate + "_" + _TitreFilm;
         
         return uniqueID;
-    } 
- /**
- * Enregistre une nouvelle location de film
- * @author Achraf, Guangyi, Justin
- */   
+    }
+    
+  // Enregistre une nouvelle location de film
     public void enregistrerPretFilm(String _NomAbonne, String _TitreFilm) {
         Optional<Abonne> abonneOptional = findAbonne(_NomAbonne);
         Optional<Film> filmOptional = findMovie(_TitreFilm);
 
-//Si l'abonné et le film existent, génère une ID et une nouvelle location. Dans le cas contraire, indique que l'un des deux n'est pas renseigné.
         if (abonneOptional.isPresent()) {
             Abonne _Abonne = abonneOptional.get();
 
@@ -139,10 +141,7 @@ public class NoyauFonctionnel {
         for(String film: listFilmsLoyes)
             enregistrerPretFilm(_NomAbonne, film);
     }
- /**
- * Affiche la liste des films qu'un abonné a loué
- * @author Achraf, Guangyi, Justin
- */   
+    
     public void afficherListeFilms(String nomAbonne) {
         Optional<Abonne> abonneOptional = findAbonne(nomAbonne);
 
@@ -153,11 +152,7 @@ public class NoyauFonctionnel {
             System.out.printf("L'abonné avec le nom %s n'existe pas\n", nomAbonne);
         }
     }
- 
-/**
- * Retourne une liste d'abonnée appartenant à une fourchette de revenu donnée
- * @author Achraf, Guangyi, Justin
- */
+
     public List<Abonne> abonnesFourchetteRevenu(int _FourchetteRevenu) {
         return abonnes.entrySet().stream()
                                     .filter(entry -> entry.getValue().getFourchetteRevenu() == _FourchetteRevenu)
@@ -165,10 +160,7 @@ public class NoyauFonctionnel {
                                     .collect(Collectors.toList());
     }
         
-/**
- * Retour le genre le plus populaire parmis les locations 
- * @author Achraf, Guangyi, Justin
- */
+
     public Optional<Genre> genrePlusPopulaires() {
         Map<Genre, Long> nbLocationParGenre = pret.values().stream()
                 .flatMap(locations -> locations.stream())
@@ -182,22 +174,14 @@ public class NoyauFonctionnel {
                 .max(Comparator.comparingLong(Map.Entry::getValue))
                 .map(Map.Entry::getKey);
     }
-
- /**
- * Retourne la similarité entre 2 abonnés en fonction de leur différence d'age, de sexe et de fourchette de revenu
- * @author Achraf, Guangyi, Justin
- */
+    
     private int getSimilarityAbonne(final Abonne abonne1, final Abonne abonne2){
         int similarityAge = Math.abs(abonne1.getAge() - abonne2.getAge())/10;
         int similaritySexe = (abonne1.getSexe().equals(abonne2.getSexe()) ? 1 : 0);
         int similarityTranche = Math.abs(abonne1.getFourchetteRevenu()- abonne2.getFourchetteRevenu());
         return similarityAge + similaritySexe + similarityTranche;
     }
- /**
- * Retourne la similarité entre 2 sous genres, 0 s'ils sont identiques, 
- * 1 s'ils sont différents mais du même genre, et 2 si les genres sont différents 
- * @author Achraf, Guangyi, Justin
- */
+    
     private int similarityGenre(final SousGenre sousGenre1, final SousGenre sousGenre2){
         int similarity = 0;
         if((sousGenre1.GetGenre().equals(sousGenre2.GetGenre())) && !(sousGenre1.equals(sousGenre2))){
@@ -208,13 +192,10 @@ public class NoyauFonctionnel {
         }
         return similarity;
     }
- /**
- * Retourne la similarité entre 2 films en calculant la similarité entre les gens, le type (couleur) et les acteurs
- * @author Achraf, Guangyi, Justin
- */    
+    
     private int getSimilarityFilm(final Film film1, final Film film2){
         int _similarityGenre = similarityGenre(film1.getSousGenre(), film2.getSousGenre());
-        int similarityTypeFilm = (film1.getTypeFilm().toUpperCase().equals(film2.getTypeFilm().toUpperCase())? 0 : 1); //Si c'est la même couleur 0 sinon 1
+        int similarityTypeFilm = (film1.getTypeFilm().toUpperCase().equals(film2.getTypeFilm().toUpperCase())? 0 : 1);
         List<Acteur> acteurs = film1.getActeurs().stream()
                 .distinct()
                 .filter(film2.getActeurs()::contains)
@@ -222,16 +203,12 @@ public class NoyauFonctionnel {
         int similarityActeur = film1.getActeurs().size() + film2.getActeurs().size() - acteurs.size();
         return _similarityGenre + similarityTypeFilm + similarityActeur;
     }
- 
- /**
- * Retourne une liste de films les plus similaires à un film donné sous la forme d'un tri du plus au moins similaire
- * @author Achraf, Guangyi, Justin
- */        
+    
     public List<Film> getListFilmsSim(final String _NomFilm) {
         Optional<Film> filmOptional = findMovie(_NomFilm);
 
         if (filmOptional.isPresent()) {
-            Film _Film = filmOptional.get();
+            Film _Film = filmOptional.get();  // Corrected line
 
             List<Film> sortedFilms = films.entrySet().stream()
                     .filter(film1 -> !film1.getValue().equals(_Film))
@@ -245,10 +222,7 @@ public class NoyauFonctionnel {
         }
     }
 
- /**
- * 
- * @author Achraf, Guangyi, Justin
- */    
+    
     private int calculateMaxSimilarity(List<Film> films) {
         return films.stream()
                 .mapToInt(film1 -> films.stream()
@@ -261,10 +235,7 @@ public class NoyauFonctionnel {
         
     }
     
- /**
- * Retourne la liste d'abonnée qui a loué des films se ressemblant très peu 
- * @author Achraf, Guangyi, Justin
- */    
+    
     public List<Abonne> getListAbonneCurieux(){
         
         Map<Abonne, Integer> abonnesSimilarityMaxScore = new HashMap<>();
@@ -285,10 +256,7 @@ public class NoyauFonctionnel {
             .map(Map.Entry::getKey)
             .collect(Collectors.toList());
     }
- /**
- * Extrait de la liste des abonnés les abonnés les plus proches d'un abonné donné. 
- * @author Achraf, Guangyi, Justin
- */    
+    
     public List<Abonne> getListAbonnesSim(final String _NomAbonne) {
         Optional<Abonne> abonneOptional = findAbonne(_NomAbonne);
 
@@ -305,10 +273,7 @@ public class NoyauFonctionnel {
         }
     }    
     
- /**
- * Retourne la moyenne de similarité parmis la liste d'abonnés
- * @author Achraf, Guangyi, Justin
- */      
+    
     private Double calculateAvgSimilarity(List<Abonne> abonnes) {
     return abonnes.stream()
             .mapToDouble(abonne1 -> abonnes.stream()
@@ -319,10 +284,7 @@ public class NoyauFonctionnel {
             .average()
             .orElse(0);
     }
- /**
- * Retourne la liste d'abonnés ayant loué un film, pour chacun des films
- * @author Achraf, Guangyi, Justin
- */       
+    
     private Map<Film, List<Abonne>> getListAbonnesByFilm(List<Film> _Films){
         
         List<Abonne> _Abonnes = new ArrayList<>(abonnes.values());
@@ -342,12 +304,7 @@ public class NoyauFonctionnel {
         
         return abonnesByFilm;
     }
-
-   /**
-   * Retourne la liste des films ayant un public contenu dans un seuil de similarité indiqué 
-   * @author Achraf, Guangyi, Justin
-   */   
- 
+    
     public List<Film> listFilmsType(double threshold){
         
         Map<Film, List<Abonne>> _GetListAbonnesByFilm = getListAbonnesByFilm(new ArrayList<>(films.values()));
@@ -363,13 +320,9 @@ public class NoyauFonctionnel {
         
         return filmsTypes;
     }
-
- /**
- * Crée un nouveau coffret
- * @author Achraf, Guangyi, Justin
- */   
-    public void creatCoffret(String titre, List<Acteur> listActeur, List<Film> listFilm, boolean bonus) {
-        Coffret nouveauCoffret = new Coffret(titre, listActeur, listFilm, bonus);
+    
+    public void creatCoffret(String titre, List<Film> listFilm, boolean bonus) {
+        Coffret nouveauCoffret = new Coffret(titre, listFilm, bonus);
         if (!coffrets.containsKey(titre)) {
             coffrets.put(titre, nouveauCoffret);
             System.out.println("Le coffret a été ajouté!");
@@ -377,10 +330,7 @@ public class NoyauFonctionnel {
             System.out.println("Le coffret existe déja!");
         }
     }
- /**
- * Calcul la similarité entre un coffret et un film donné
- * @author Achraf, Guangyi, Justin
- */   
+    
     public int getSimilarityCoffretAndFilm(Coffret _Coffret, Film _Film){
         
         List<Film> filmsCoffret = _Coffret.getListFilm();
@@ -391,9 +341,9 @@ public class NoyauFonctionnel {
                     .max()
                     .orElse(0);
         
-        int isBonus = (_Coffret.isBonus())? 1:0; //S'il y a un bonus, prends en compte 1 
+        int isBonus = (_Coffret.isBonus())? 1:0;
         
-        return simFilms + filmsCoffret.size() + isBonus; 
+        return simFilms + filmsCoffret.size() + isBonus;
     }
     
     public Optional<Coffret> findCoffret(String _Titre) {
@@ -404,17 +354,14 @@ public class NoyauFonctionnel {
             return Optional.empty();
         }
     }
- /**
- * Enregistre une nouvelle location de coffret 
- * @author Achraf, Guangyi, Justin
- */    
+    
     public void enregistrerPretCoffret(String _NomAbonne, String _CoffretTitle) {
         Optional<Abonne> abonneOptional = findAbonne(_NomAbonne);
         Optional<Coffret> coffretOptional = findCoffret(_CoffretTitle);
 
         if (abonneOptional.isPresent()) {
             Abonne _Abonne = abonneOptional.get();
-//Si l'abonné et le coffret existent, génère une ID et une nouvelle location. Dans le cas contraire, indique que l'un des deux n'est pas renseigné.
+
             if (coffretOptional.isPresent()) {
                 Coffret _Coffret = coffretOptional.get();
                 String id = generateID(_NomAbonne, _CoffretTitle);
