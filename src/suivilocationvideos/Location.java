@@ -15,20 +15,27 @@ import java.util.Objects;
  * @author JAchraf, Guangyi, Justin
  */
 public class Location {
-    private final String id;
+    private String id;
     private Date dateDebut;
     private Abonne abonne;
-    private final Film film;
-    private final Coffret coffret;
+    private Film film;
+    private Coffret coffret;
 
     
-    public Location(String id, Abonne _Abonne, Film _Film, Coffret _Coffret) {
+    public Location(String id, Abonne _Abonne, Film _Film) {
         this.id = id;
         this.abonne = _Abonne;
         this.film = _Film;
-        this.coffret = _Coffret;
         this.dateDebut = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.abonne.setHistoryFilm(_Film);
+    }
+    
+    public Location(String id, Abonne _Abonne, Coffret _Coffret) {
+        this.id = id;
+        this.abonne = _Abonne;
+        this.coffret = _Coffret;
+        this.dateDebut = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.abonne.setHistoryCoffret(_Coffret);
     }
     
 
@@ -105,3 +112,4 @@ public class Location {
     
     
 }
+

@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  *
- * @author Achraf, Guangyi, Justin
+ * @author jlema
  */
 public class Film {
     private final String titre;
@@ -68,9 +68,6 @@ public class Film {
         System.out.println("L'acteur a été supprimé avec succès.");
     }
     
-    public Film getFilmByTitle(final String _Titre){
-        return null;
-    }
     
     @Override
     public int hashCode() {
@@ -104,5 +101,3 @@ public class Film {
 
 
   }
-
-    
