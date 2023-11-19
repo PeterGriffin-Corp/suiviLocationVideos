@@ -5,7 +5,7 @@
 package suivilocationvideos;
 
 /**
- *
+ *Création d'une énumération pour les genre comédie et action
  * @author Achraf, Guangyi, Justin
  */
 public enum Genre {
