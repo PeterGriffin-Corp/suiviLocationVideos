@@ -103,8 +103,11 @@ public class NoyauFonctionnel {
         String uniqueID = _NomAbonne + "_" + currentDate + "_" + _TitreFilm;
         
         return uniqueID;
-    }
-//Enregistre une nouvelle location    
+    } 
+ /**
+ * Enregistre une nouvelle location   
+ * @author Achraf, Guangyi, Justin
+ */   
     public void enregistrerPretFilm(String _NomAbonne, String _TitreFilm) {
         Optional<Abonne> abonneOptional = findAbonne(_NomAbonne);
         Optional<Film> filmOptional = findMovie(_TitreFilm);
@@ -162,7 +165,10 @@ public class NoyauFonctionnel {
                                     .collect(Collectors.toList());
     }
         
-
+/**
+ * Retour le genre le plus populaire parmis les locations 
+ * @author Achraf, Guangyi, Justin
+ */
     public Optional<Genre> genrePlusPopulaires() {
         Map<Genre, Long> nbLocationParGenre = pret.values().stream()
                 .flatMap(locations -> locations.stream())
@@ -176,14 +182,22 @@ public class NoyauFonctionnel {
                 .max(Comparator.comparingLong(Map.Entry::getValue))
                 .map(Map.Entry::getKey);
     }
-    
+
+ /**
+ * Retourne la similarité entre 2 abonnés en fonction de leur différence d'age, de sexe et de fourchette de revenu
+ * @author Achraf, Guangyi, Justin
+ */
     private int getSimilarityAbonne(final Abonne abonne1, final Abonne abonne2){
         int similarityAge = Math.abs(abonne1.getAge() - abonne2.getAge())/10;
         int similaritySexe = (abonne1.getSexe().equals(abonne2.getSexe()) ? 1 : 0);
         int similarityTranche = Math.abs(abonne1.getFourchetteRevenu()- abonne2.getFourchetteRevenu());
         return similarityAge + similaritySexe + similarityTranche;
     }
-    
+ /**
+ * Retourne la similarité entre 2 sous genres, 0 s'ils sont identiques, 
+ * 1 s'ils sont différents mais du même genre, et 2 si les genres sont différents 
+ * @author Achraf, Guangyi, Justin
+ */
     private int similarityGenre(final SousGenre sousGenre1, final SousGenre sousGenre2){
         int similarity = 0;
         if((sousGenre1.GetGenre().equals(sousGenre2.GetGenre())) && !(sousGenre1.equals(sousGenre2))){
@@ -194,10 +208,13 @@ public class NoyauFonctionnel {
         }
         return similarity;
     }
-    
+ /**
+ * Retourne la similarité entre 2 films en calculant la similarité entre les gens, le type (couleur) et les acteurs
+ * @author Achraf, Guangyi, Justin
+ */    
     private int getSimilarityFilm(final Film film1, final Film film2){
         int _similarityGenre = similarityGenre(film1.getSousGenre(), film2.getSousGenre());
-        int similarityTypeFilm = (film1.getTypeFilm().toUpperCase().equals(film2.getTypeFilm().toUpperCase())? 0 : 1);
+        int similarityTypeFilm = (film1.getTypeFilm().toUpperCase().equals(film2.getTypeFilm().toUpperCase())? 0 : 1); //Si c'est la même couleur 0 sinon 1
         List<Acteur> acteurs = film1.getActeurs().stream()
                 .distinct()
                 .filter(film2.getActeurs()::contains)
@@ -205,7 +222,11 @@ public class NoyauFonctionnel {
         int similarityActeur = film1.getActeurs().size() + film2.getActeurs().size() - acteurs.size();
         return _similarityGenre + similarityTypeFilm + similarityActeur;
     }
-    
+ 
+ /**
+ * Retourne une liste de films les plus similaires à un film donné sous la forme d'un tri du plus au moins similaire
+ * @author Achraf, Guangyi, Justin
+ */        
     public List<Film> getListFilmsSim(final String _NomFilm) {
         Optional<Film> filmOptional = findMovie(_NomFilm);
 
@@ -224,7 +245,10 @@ public class NoyauFonctionnel {
         }
     }
 
-    
+ /**
+ * 
+ * @author Achraf, Guangyi, Justin
+ */    
     private int calculateMaxSimilarity(List<Film> films) {
         return films.stream()
                 .mapToInt(film1 -> films.stream()
@@ -237,7 +261,10 @@ public class NoyauFonctionnel {
         
     }
     
-    
+ /**
+ * Retourne la liste d'abonnée qui a loué des films se ressemblant très peu 
+ * @author Achraf, Guangyi, Justin
+ */    
     public List<Abonne> getListAbonneCurieux(){
         
         Map<Abonne, Integer> abonnesSimilarityMaxScore = new HashMap<>();
