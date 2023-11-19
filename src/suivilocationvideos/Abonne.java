@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
+ * Création de la classe abonnée
  * @author Achraf, Guangyi, Justin
  */
 public class Abonne {
@@ -20,9 +20,10 @@ public class Abonne {
     private String dateNaissance;
     private String sexe;
     private int fourchetteRevenu;
-    private List<Film> historyFilm;
-    private List<Coffret> historyCoffret;
-
+    private List<Film> historyFilm; //Liste des films que l'abonné a loué
+    private List<Coffret> historyCoffret; //Liste des coffret que l'abonné a loué
+    
+//Constructeur
     public Abonne(String nom, String dateNaissance, String sexe, int revenu) {
         if(revenu <= 5 && revenu >0){
             this.nom = nom;
@@ -37,7 +38,7 @@ public class Abonne {
             System.err.println("Tranche Revenu doit être égale à une valeur entre 1 et 5");
         }
     }
-
+//Getter&Setter
     public String getNom() {
         return nom;
     }
@@ -83,7 +84,7 @@ public class Abonne {
         if (!this.historyCoffret.contains(_aHistoryCoffret))
             this.historyCoffret.add (_aHistoryCoffret);
     }
-
+//Calcul de l'âge à partir de la date de naissance
     public int getAge(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
@@ -102,7 +103,7 @@ public class Abonne {
         
         return age;
     }
-
+//Hashcode & equals
     @Override
     public int hashCode() {
         int hash = 3;
