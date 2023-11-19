@@ -12,7 +12,7 @@ import java.util.Objects;
 
 /**
  *
- * @author Achraf
+ * @author Achraf, Guangyi, Justin
  */
 public class Abonne {
     
@@ -21,6 +21,7 @@ public class Abonne {
     private String sexe;
     private int fourchetteRevenu;
     private List<Film> historyFilm;
+    private List<Coffret> historyCoffret;
 
     public Abonne(String nom, String dateNaissance, String sexe, int revenu) {
         this.nom = nom;
@@ -29,6 +30,9 @@ public class Abonne {
         this.fourchetteRevenu = revenu;
         if(this.historyFilm == null)
             this.historyFilm = new ArrayList<>();
+        if(this.historyCoffret == null)
+            this.historyCoffret = new ArrayList<>();
+        
     }
 
     public String getNom() {
@@ -68,8 +72,15 @@ public class Abonne {
             this.historyFilm.add(_Films);
     }
 
-    
-    
+    public List<Coffret> getHistoryCoffret() {
+        return historyCoffret;
+    }
+
+    public void setHistoryCoffret(Coffret _aHistoryCoffret) {
+        if (!this.historyCoffret.contains(_aHistoryCoffret))
+            this.historyCoffret.add (_aHistoryCoffret);
+    }
+
     public int getAge(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
@@ -91,11 +102,13 @@ public class Abonne {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + Objects.hashCode(this.nom);
-        hash = 67 * hash + Objects.hashCode(this.dateNaissance);
-        hash = 67 * hash + Objects.hashCode(this.sexe);
-        hash = 67 * hash + Objects.hashCode(this.fourchetteRevenu);
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.nom);
+        hash = 29 * hash + Objects.hashCode(this.dateNaissance);
+        hash = 29 * hash + Objects.hashCode(this.sexe);
+        hash = 29 * hash + this.fourchetteRevenu;
+        hash = 29 * hash + Objects.hashCode(this.historyFilm);
+        hash = 29 * hash + Objects.hashCode(this.historyCoffret);
         return hash;
     }
 
@@ -111,23 +124,28 @@ public class Abonne {
             return false;
         }
         final Abonne other = (Abonne) obj;
-        if (!Objects.equals(this.nom, other.nom)) {
+        if (this.fourchetteRevenu != other.fourchetteRevenu) {
             return false;
         }
-        if (!Objects.equals(this.sexe, other.sexe)) {
+        if (!Objects.equals(this.nom, other.nom)) {
             return false;
         }
         if (!Objects.equals(this.dateNaissance, other.dateNaissance)) {
             return false;
         }
-        return this.fourchetteRevenu == other.fourchetteRevenu;
+        if (!Objects.equals(this.sexe, other.sexe)) {
+            return false;
+        }
+        if (!Objects.equals(this.historyFilm, other.historyFilm)) {
+            return false;
+        }
+        return Objects.equals(this.historyCoffret, other.historyCoffret);
     }
 
     @Override
     public String toString() {
-        return "Abonne{" + "nom=" + nom + ", age=" + getAge() + ", sexe=" + sexe + ", revenu=" + fourchetteRevenu + '}';
+        return "Abonne{" + "nom=" + nom + ", dateNaissance=" + dateNaissance + ", sexe=" + sexe + ", fourchetteRevenu=" + fourchetteRevenu + ", historyFilm=" + historyFilm + ", historyCoffret=" + historyCoffret + '}';
     }
-    
     
     
 }

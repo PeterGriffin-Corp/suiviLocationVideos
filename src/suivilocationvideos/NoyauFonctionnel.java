@@ -4,7 +4,7 @@
  */
 package suivilocationvideos;
 
-import java.text.Collator;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 /**
  *
- * @author guangyi Huang
+ * @author Achraf, Guangyi, Justin
  */
 public class NoyauFonctionnel {
  
@@ -109,6 +109,11 @@ public class NoyauFonctionnel {
                 Film _Film = filmOptional.get();
                 String id = generateID(_NomAbonne, _TitreFilm);
                 Location loc = new Location(id, _Abonne, _Film);
+                List<Location> locationList = new ArrayList<>();
+                if(pret.get(_Abonne) != null)
+                    locationList = pret.get(_Abonne);
+                locationList.add(loc);
+                pret.put(_Abonne, locationList);
                 System.out.printf("Le prêt du film %s par %s a été loué sous l'id: %s\n", _TitreFilm, _NomAbonne, id);
             } else {
                 System.out.println("Nous ne pouvons pas enregistrer le prêt du film car le film n'est pas enregistré\n");
@@ -141,35 +146,20 @@ public class NoyauFonctionnel {
                                     .map(Map.Entry::getValue)
                                     .collect(Collectors.toList());
     }
-    /*
-    public Genre genrePlusPopulaire() {
-        Map<Genre, Integer> genresCount = new HashMap<>();
-
-        for (List<Film> films : pret.values()) {
-            for (Film film : films) {
-                Genre genre = film.getSousGenre().getGenre();
-                genresCount.put(genre, genresCount.getOrDefault(genre, 0) + 1);
-            }
-        }
-    
-        Genre genrePlusPopulaire = null;
-        int maxCount = 0;
-
-        for (Map.Entry<Genre, Integer> entry : genresCount.entrySet()) {
-            if (entry.getValue() > maxCount) {
-                maxCount = entry.getValue();
-                genrePlusPopulaire = entry.getKey();
-            }
-        }
-
-        return genrePlusPopulaire;
-    }
-    */
-    public Genre genrePlusPopulaires(){
         
-        
-        
-        return null;
+
+    public Optional<Genre> genrePlusPopulaires() {
+        Map<Genre, Long> nbLocationParGenre = pret.values().stream()
+                .flatMap(locations -> locations.stream())
+                .map(location -> location.getFilm().getSousGenre().GetGenre())
+                .collect(Collectors.groupingBy(
+                        genre -> genre,
+                        Collectors.counting()
+                ));
+
+        return nbLocationParGenre.entrySet().stream()
+                .max(Comparator.comparingLong(Map.Entry::getValue))
+                .map(Map.Entry::getKey);
     }
     
     private int getSimilarityAbonne(final Abonne abonne1, final Abonne abonne2){
@@ -317,5 +307,11 @@ public class NoyauFonctionnel {
         
         return filmsTypes;
     }
+    
+    public Coffret creatCoffret(String titre, List<Acteur> listActeur, List<Film> listFilm, boolean bonus) {
+        return new Coffret(titre, listActeur, listFilm, bonus);
+    }
+    
+    
     
 }
