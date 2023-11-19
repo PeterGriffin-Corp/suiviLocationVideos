@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  *
- * @author Achraf
+ * @author Achraf, Guangyi, Justin
  */
 public class SuiviLocationVideos {
 

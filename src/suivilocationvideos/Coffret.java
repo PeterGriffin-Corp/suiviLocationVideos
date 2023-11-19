@@ -4,6 +4,7 @@
  */
 package suivilocationvideos;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -11,10 +12,15 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
- * @author Guangyi HUANG
+ * @author Achraf, Guangyi, Justin
  */
 public class Coffret {
     private final String titre;
@@ -41,36 +47,23 @@ public class Coffret {
         return titre;
     }
     public Genre getGenreMajoritaire() {
-        Map<Genre, Integer> genreCount = new HashMap<>();
+        Map<Genre, Long> nbFilmsParGenre = listFilm.stream()
+                .map(Film -> Film.getSousGenre().GetGenre())
+                .collect(Collectors.groupingBy(
+                        genre -> genre,
+                        Collectors.counting()
+                ));
 
-        // Compter le nombre d'occurrences de chaque genre
-        for (Film film : listFilm) {
-            Enum genre = film.getSousGenre().getGenre();
-            genreCount.put(genre, genreCount.getOrDefault(genre, 0) + 1);
-        }
+        Optional<Map.Entry<Genre, Long>> genreMajoritaire = nbFilmsParGenre.entrySet().stream()
+                .max(Map.Entry.comparingByValue());
 
-        // Trouver le genre avec le nombre d'occurrences le plus élevé
-        Genre genreMajoritaire = null;
-        int countMajoritaire = 0;
-
-        for (Map.Entry<Genre, Integer> entry : genreCount.entrySet()) {
-            Genre genre = entry.getKey();
-            int count = entry.getValue();
-
-            if (count > countMajoritaire) {
-                countMajoritaire = count;
-                genreMajoritaire = genre;
-            }
-        }
-
-        return genreMajoritaire;
+        return genreMajoritaire.map(Map.Entry::getKey).orElse(null);
     }
+
 
 
     public List<Acteur> getListeActeurs() {
         List<Acteur> listActeurs = new ArrayList<>();
-
-        // Parcourir chaque film pour récupérer la liste d'acteurs
         for (Film film : listFilm) {
             listActeurs.addAll(film.getActeurs());
         }
@@ -128,4 +121,3 @@ public class Coffret {
    
    
 }
-  
