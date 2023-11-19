@@ -202,7 +202,7 @@ public class NoyauFonctionnel {
         Optional<Film> filmOptional = findMovie(_NomFilm);
 
         if (filmOptional.isPresent()) {
-            Film _Film = filmOptional.get();  // Corrected line
+            Film _Film = filmOptional.get();
 
             List<Film> sortedFilms = films.entrySet().stream()
                     .filter(film1 -> !film1.getValue().equals(_Film))
