@@ -95,7 +95,7 @@ public class NoyauFonctionnel {
             return Optional.empty();
         }
     } 
-//    
+// Génère une ID unique lors d'une location    
     private static String generateID(String _NomAbonne, String _TitreFilm){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
         String currentDate = LocalDate.now().format(formatter);
@@ -109,6 +109,7 @@ public class NoyauFonctionnel {
         Optional<Abonne> abonneOptional = findAbonne(_NomAbonne);
         Optional<Film> filmOptional = findMovie(_TitreFilm);
 
+//Si l'abonné et le film existent, génère une ID et une nouvelle location. Dans le cas contraire, indique que l'un des deux n'est pas renseigné.
         if (abonneOptional.isPresent()) {
             Abonne _Abonne = abonneOptional.get();
 
@@ -135,7 +136,10 @@ public class NoyauFonctionnel {
         for(String film: listFilmsLoyes)
             enregistrerPretFilm(_NomAbonne, film);
     }
-    
+ /**
+ * Affiche la liste des films qu'un abonné a loué
+ * @author Achraf, Guangyi, Justin
+ */   
     public void afficherListeFilms(String nomAbonne) {
         Optional<Abonne> abonneOptional = findAbonne(nomAbonne);
 
@@ -146,7 +150,11 @@ public class NoyauFonctionnel {
             System.out.printf("L'abonné avec le nom %s n'existe pas\n", nomAbonne);
         }
     }
-
+ 
+/**
+ * Retourne une liste d'abonnée appartenant à une fourchette de revenu donnée
+ * @author Achraf, Guangyi, Justin
+ */
     public List<Abonne> abonnesFourchetteRevenu(int _FourchetteRevenu) {
         return abonnes.entrySet().stream()
                                     .filter(entry -> entry.getValue().getFourchetteRevenu() == _FourchetteRevenu)
