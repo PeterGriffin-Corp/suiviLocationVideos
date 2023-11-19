@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -29,6 +30,7 @@ public class NoyauFonctionnel {
     private final Map<String, Coffret> coffrets;
     private final Map<Abonne, List<Location>> pret;
 
+  //Constructeur
     public NoyauFonctionnel() {
         this.abonnes = new HashMap<>();
         this.films = new HashMap<>();
@@ -54,7 +56,7 @@ public class NoyauFonctionnel {
     
     
     
-    
+     // Ajout d'un nouvel abonné  
     public void addAbonne(String _Nom, String _DateNaissance, String _Sexe, int trancheRevenu){
         final Abonne abonned = new Abonne(_Nom, _DateNaissance, _Sexe, trancheRevenu);
         if (!abonnes.containsKey(_Nom)) {
@@ -66,6 +68,7 @@ public class NoyauFonctionnel {
     }
     
 
+  //Regarder si l'abonné existe
     public Optional<Abonne> findAbonne(String _Nom) {
         if (abonnes.containsKey(_Nom)) {
             return Optional.of(abonnes.get(_Nom));
@@ -76,7 +79,7 @@ public class NoyauFonctionnel {
     }
     
     
-
+  //Ajout d'un nouveau film
     public void addFilm(String _Titre, String _TypeFilm, SousGenre _SousGenre, List<Acteur> _Acteurs) {
         Film nouveauFilm = new Film(_Titre, _TypeFilm, _SousGenre, _Acteurs);
         if (!films.containsKey(_Titre)) {
@@ -87,6 +90,7 @@ public class NoyauFonctionnel {
         }
     }
 
+  //Regarder si le film
     public Optional<Film> findMovie(String _Titre) {
         if (films.containsKey(_Titre)) {
             return Optional.of(films.get(_Titre));
@@ -96,6 +100,7 @@ public class NoyauFonctionnel {
         }
     } 
     
+  // Génère une ID unique lors d'une location  
     private static String generateID(String _NomAbonne, String _TitreFilm){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
         String currentDate = LocalDate.now().format(formatter);
@@ -105,6 +110,7 @@ public class NoyauFonctionnel {
         return uniqueID;
     }
     
+  // Enregistre une nouvelle location de film
     public void enregistrerPretFilm(String _NomAbonne, String _TitreFilm) {
         Optional<Abonne> abonneOptional = findAbonne(_NomAbonne);
         Optional<Film> filmOptional = findMovie(_TitreFilm);

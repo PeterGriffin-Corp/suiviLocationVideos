@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- *
+ * Création d'un classe location
  * @author JAchraf, Guangyi, Justin
  */
 public class Location {

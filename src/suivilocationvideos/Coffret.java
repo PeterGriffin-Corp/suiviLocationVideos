@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- *
+ * Création de la classe Coffret
  * @author Achraf, Guangyi, Justin
  */
 public class Coffret {
@@ -29,6 +29,7 @@ public class Coffret {
     private final List<Film> listFilm;
     private final boolean bonus;
 
+  //Constructeur
     public Coffret(String aTitre, List<Film> aListFilm, boolean aBonus) {
         this.titre = aTitre;
         this.listActeur = getListeActeurs();
@@ -37,7 +38,8 @@ public class Coffret {
         this.genre = getGenreMajoritaire();
     }
     
-    
+
+    //Ajouter un film dans le coffret
     public void addFilm(Film film) {
     // Vérifier si le film n'existe pas déjà dans la liste
     if (!listFilm.contains(film)) {
@@ -48,7 +50,9 @@ public class Coffret {
     public String getTitre() {
         return titre;
     }
-    
+
+   //Retourne le genre majoritaire représenté dans le coffret ou null s'il n'y en a pas
+
     public Genre getGenreMajoritaire() {
         Map<Genre, Long> nbFilmsParGenre = listFilm.stream()
                 .map(Film -> Film.getSousGenre().GetGenre())

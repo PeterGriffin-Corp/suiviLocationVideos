@@ -28,6 +28,7 @@ public class SuiviLocationVideos {
      * @param args the command line arguments
      */
     public static void main(String[] args){
+
      
         /*
         La création des acteurs
@@ -41,6 +42,7 @@ public class SuiviLocationVideos {
         /*
         L'ajout des acteurs dans une liste d'acteurs
         */
+
         List<Acteur> listActeurs1 = new ArrayList<>();
         listActeurs1.add(acteur1);
         listActeurs1.add(acteur3);
@@ -158,6 +160,7 @@ public class SuiviLocationVideos {
       
         // System.out.println(nf.getListAbonneCurieux());
         
+
         Gson g = new Gson();
         
         
@@ -166,6 +169,7 @@ public class SuiviLocationVideos {
         Path resourcesPath = Paths.get("src");
         Path folderPath = resourcesPath.resolve(folderName);
         
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
         String currentDate = LocalDate.now().format(formatter);
         

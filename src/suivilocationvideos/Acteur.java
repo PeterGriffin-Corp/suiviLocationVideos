@@ -7,17 +7,25 @@ package suivilocationvideos;
 import java.util.Objects;
 
 /**
- *
- * @author jlema
+
+=======
+ * Création de la classe abonnée
+ * @author Achraf, Guangyi, Justin
  */
 public class Acteur {
     private final String nom;
     private final String Prenom;
 
+
+    //Constructeur
+
     public Acteur(String aNom, String aPrenom) {
         this.nom = aNom;
         this.Prenom = aPrenom;
     }
+
+
+//Getter&Setter
 
     public String getNom() {
         return nom;
@@ -26,6 +34,10 @@ public class Acteur {
     public String getPrenom() {
         return Prenom;
     }
+
+
+
+//Hashcode&Equals
 
     @Override
     public int hashCode() {

@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
- * @author jlema
+ * Création de la classe Film
+ * @author Achraf, Guangyi, Justin
  */
 public class Film {
     private final String titre;
@@ -49,7 +49,9 @@ public class Film {
         return acteurs;
     }
     
-    
+
+    //Ajouter un nouvel acteur s'il n'existe pas dans la liste
+
     public void addActeur(final String aNom, final String aPrenom) {
     Acteur nouvelActeur = new Acteur(aNom, aPrenom);
 
@@ -62,6 +64,7 @@ public class Film {
         }
     }
 
+//Supprimer l'acteur
 
     public void removeActeur(final Acteur aActeur) {
         acteurs.remove(aActeur);
@@ -95,9 +98,6 @@ public class Film {
     public String toString() {
         return "Film{" + "titre=" + titre + ", typeFilm=" + typeFilm + ", sousGenre=" + sousGenre + ", acteurs=" + acteurs + '}';
     }
-    
-    
-    
-
-
+   
   }
+
