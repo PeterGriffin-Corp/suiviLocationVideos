@@ -109,6 +109,11 @@ public class NoyauFonctionnel {
                 Film _Film = filmOptional.get();
                 String id = generateID(_NomAbonne, _TitreFilm);
                 Location loc = new Location(id, _Abonne, _Film);
+                List<Location> locationList = new ArrayList<>();
+                if(pret.get(_Abonne) != null)
+                    locationList = pret.get(_Abonne);
+                locationList.add(loc);
+                pret.put(_Abonne, locationList);
                 System.out.printf("Le prêt du film %s par %s a été loué sous l'id: %s\n", _TitreFilm, _NomAbonne, id);
             } else {
                 System.out.println("Nous ne pouvons pas enregistrer le prêt du film car le film n'est pas enregistré\n");

@@ -1,10 +1,12 @@
 
 package suivilocationvideos;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 
 /**
@@ -16,14 +18,14 @@ public class SuiviLocationVideos {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Abonne abonne1 = new Abonne("Guangyi","11/07/1996" , "M", 2);
         Abonne abonne2 = new Abonne("Achraf","01/01/1999" , "M", 2);
         Abonne abonne3 = new Abonne("Femme","01/01/1999" , "F", 3);
        
 //        System.out.println(abonne1);
         
-        Similarity sim = new Similarity();
+
        
         
         Acteur acteur1 = new Acteur("A", "B");
@@ -126,8 +128,28 @@ public class SuiviLocationVideos {
 //        System.out.println(nf.getSimilarityAbonne(_Abonnes.get(0), _Abonnes.get(1)));
 //        System.out.println(nf.getSimilarityAbonne(_Abonnes.get(0), _Abonnes.get(2)));
         
-         System.out.println(nf.getListAbonneCurieux());
+        // System.out.println(nf.getListAbonneCurieux());
+        //System.out.println(new Gson().toJson(nf));
         
+        //Gson g = new Gson();
+        
+        //NoyauFonctionnel nf1 = g.fromJson(g.toJson(nf), NoyauFonctionnel.class);
+        
+        //NoyauFonctionnel nf1 = new ObjectMapper().readValue(new ObjectMapper().writeValueAsString(nf), NoyauFonctionnel.class);
+        //System.err.println(nf1);
+        
+       
+        //String abonnesJsonString = new ObjectMapper().writeValueAsString(nf.getAbonnes());
+        
+        //Map<String, Abonne> abonnes_json = new ObjectMapper().readValue(abonnesJsonString, new com.fasterxml.jackson.core.type.TypeReference<Map<String, Abonne>>() {});
+
+        //System.out.println(abonnes_json);
+        //System.out.println(new ObjectMapper().writeValueAsString(nf.getAbonnes()));
+        
+        
+        //String jsonString = g.toJson(nf);
+        //JsonElement jsonElement = JsonParser.parseString(jsonString);
+        //System.out.println(jsonElement);
     }
     
 }
