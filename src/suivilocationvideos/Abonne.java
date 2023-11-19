@@ -24,15 +24,18 @@ public class Abonne {
     private List<Coffret> historyCoffret;
 
     public Abonne(String nom, String dateNaissance, String sexe, int revenu) {
-        this.nom = nom;
-        this.dateNaissance = dateNaissance;
-        this.sexe = sexe;
-        this.fourchetteRevenu = revenu;
-        if(this.historyFilm == null)
-            this.historyFilm = new ArrayList<>();
-        if(this.historyCoffret == null)
-            this.historyCoffret = new ArrayList<>();
-        
+        if(revenu <= 5 && revenu >0){
+            this.nom = nom;
+            this.dateNaissance = dateNaissance;
+            this.sexe = sexe;
+            this.fourchetteRevenu = revenu;
+            if(this.historyFilm == null)
+                this.historyFilm = new ArrayList<>();
+            if(this.historyCoffret == null)
+                this.historyCoffret = new ArrayList<>();
+        }else{
+            System.err.println("Tranche Revenu doit être égale à une valeur entre 1 et 5");
+        }
     }
 
     public String getNom() {

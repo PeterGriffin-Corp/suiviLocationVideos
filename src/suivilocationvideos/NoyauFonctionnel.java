@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
 
@@ -25,12 +26,14 @@ public class NoyauFonctionnel {
  
     private final Map<String, Abonne> abonnes;
     private final Map<String, Film> films;
+    private final Map<String, Coffret> coffrets;
     private final Map<Abonne, List<Location>> pret;
 
     public NoyauFonctionnel() {
         this.abonnes = new HashMap<>();
         this.films = new HashMap<>();
         this.pret = new HashMap<>();
+        this.coffrets = new HashMap<>();
     }
 
     public Map<String, Abonne> getAbonnes() {
@@ -43,6 +46,10 @@ public class NoyauFonctionnel {
 
     public Map<Abonne, List<Location>> getPret() {
         return pret;
+    }
+
+    public Map<String, Coffret> getCoffrets() {
+        return coffrets;
     }
     
     
@@ -308,10 +315,63 @@ public class NoyauFonctionnel {
         return filmsTypes;
     }
     
-    public Coffret creatCoffret(String titre, List<Acteur> listActeur, List<Film> listFilm, boolean bonus) {
-        return new Coffret(titre, listActeur, listFilm, bonus);
+    public void creatCoffret(String titre, List<Acteur> listActeur, List<Film> listFilm, boolean bonus) {
+        Coffret nouveauCoffret = new Coffret(titre, listActeur, listFilm, bonus);
+        if (!coffrets.containsKey(titre)) {
+            coffrets.put(titre, nouveauCoffret);
+            System.out.println("Le coffret a été ajouté!");
+        }else{
+            System.out.println("Le coffret existe déja!");
+        }
     }
     
+    public int getSimilarityCoffretAndFilm(Coffret _Coffret, Film _Film){
+        
+        List<Film> filmsCoffret = _Coffret.getListFilm();
+        
+        int simFilms = filmsCoffret.stream()
+                    .filter(film1 -> !_Film.equals(film1))
+                    .mapToInt(film1 -> getSimilarityFilm(film1, _Film))
+                    .max()
+                    .orElse(0);
+        
+        int isBonus = (_Coffret.isBonus())? 1:0;
+        
+        return simFilms + filmsCoffret.size() + isBonus;
+    }
     
+    public Optional<Coffret> findCoffret(String _Titre) {
+        if (coffrets.containsKey(_Titre)) {
+            return Optional.of(coffrets.get(_Titre));
+        } else {
+            System.out.printf("Le Coffret avec le titre %s n'existe pas\n", _Titre);
+            return Optional.empty();
+        }
+    }
+    
+    public void enregistrerPretCoffret(String _NomAbonne, String _CoffretTitle) {
+        Optional<Abonne> abonneOptional = findAbonne(_NomAbonne);
+        Optional<Coffret> coffretOptional = findCoffret(_CoffretTitle);
+
+        if (abonneOptional.isPresent()) {
+            Abonne _Abonne = abonneOptional.get();
+
+            if (coffretOptional.isPresent()) {
+                Coffret _Coffret = coffretOptional.get();
+                String id = generateID(_NomAbonne, _CoffretTitle);
+                Location loc = new Location(id, _Abonne, _Coffret);
+                List<Location> locationList = new ArrayList<>();
+                if(pret.get(_Abonne) != null)
+                    locationList = pret.get(_Abonne);
+                locationList.add(loc);
+                pret.put(_Abonne, locationList);
+                System.out.printf("Le prêt du coffref %s par %s a été loué sous l'id: %s\n", _CoffretTitle, _NomAbonne, id);
+            } else {
+                System.out.println("Nous ne pouvons pas enregistrer le prêt du coffret car le coffret n'est pas enregistré\n");
+            }
+        } else {
+            System.out.println("Nous ne pouvons pas enregistrer le prêt du coffret car l'abonné n'est pas enregistré\n");
+        }
+    }
     
 }

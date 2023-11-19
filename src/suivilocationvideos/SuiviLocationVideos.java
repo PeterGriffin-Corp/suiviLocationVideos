@@ -2,10 +2,19 @@
 package suivilocationvideos;
 
 
+import com.google.gson.Gson;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 
 
 
@@ -114,42 +123,64 @@ public class SuiviLocationVideos {
         
         //System.err.println(_Abonnes);
         
-        //System.out.println(nf.listFilmsType(50));
-        //System.out.println(nf.getListFilmsSim("Film1"));
+        System.out.println(nf.listFilmsType(50));
+        System.out.println(nf.getListFilmsSim("Film1"));
         
-        //System.out.println(nf.getSimilarityFilm(_Films.get(0), _Films.get(3)));
-        //System.out.println(nf.getSimilarityFilm(_Films.get(0), _Films.get(2)));
-        //System.out.println(nf.getSimilarityFilm(_Films.get(0), _Films.get(1)));
+    
         
         
         
-//        System.out.println(nf.getListAbonnesSim("Guy"));
-//        
-//        System.out.println(nf.getSimilarityAbonne(_Abonnes.get(0), _Abonnes.get(1)));
-//        System.out.println(nf.getSimilarityAbonne(_Abonnes.get(0), _Abonnes.get(2)));
+        System.out.println(nf.getListAbonnesSim("Guy"));
         
+      
         // System.out.println(nf.getListAbonneCurieux());
-        //System.out.println(new Gson().toJson(nf));
         
-        //Gson g = new Gson();
+        Gson g = new Gson();
         
-        //NoyauFonctionnel nf1 = g.fromJson(g.toJson(nf), NoyauFonctionnel.class);
         
-        //NoyauFonctionnel nf1 = new ObjectMapper().readValue(new ObjectMapper().writeValueAsString(nf), NoyauFonctionnel.class);
-        //System.err.println(nf1);
         
-       
-        //String abonnesJsonString = new ObjectMapper().writeValueAsString(nf.getAbonnes());
+        String folderName = "data";
+        Path resourcesPath = Paths.get("src");
+        Path folderPath = resourcesPath.resolve(folderName);
         
-        //Map<String, Abonne> abonnes_json = new ObjectMapper().readValue(abonnesJsonString, new com.fasterxml.jackson.core.type.TypeReference<Map<String, Abonne>>() {});
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
+        String currentDate = LocalDate.now().format(formatter);
+        
+        
 
-        //System.out.println(abonnes_json);
-        //System.out.println(new ObjectMapper().writeValueAsString(nf.getAbonnes()));
         
+        try {
+            FileWriter file = new FileWriter(folderPath.toString() + "\\Abonne_" + currentDate, false);
+            file.write(g.toJson(nf.getAbonnes()));
+            file.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SuiviLocationVideos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        //String jsonString = g.toJson(nf);
-        //JsonElement jsonElement = JsonParser.parseString(jsonString);
-        //System.out.println(jsonElement);
+        try {
+            FileWriter file = new FileWriter(folderPath.toString() + "\\films_" + currentDate, false);
+            file.write(g.toJson(nf.getFilms()));
+            file.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SuiviLocationVideos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            FileWriter file = new FileWriter(folderPath.toString() + "\\coffret_" + currentDate, false);
+            file.write(g.toJson(nf.getCoffrets()));
+            file.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SuiviLocationVideos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            FileWriter file = new FileWriter(folderPath.toString() + "\\pret_" + currentDate, false);
+            file.write(g.toJson(nf.getPret()));
+            file.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SuiviLocationVideos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
 }

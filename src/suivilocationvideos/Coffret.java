@@ -24,6 +24,7 @@ import java.util.stream.Stream;
  */
 public class Coffret {
     private final String titre;
+    private final Genre genre;
     private final List<Acteur> listActeur;
     private final List<Film> listFilm;
     private final boolean bonus;
@@ -33,6 +34,7 @@ public class Coffret {
         this.listActeur = aListActeur;
         this.listFilm = aListFilm;
         this.bonus = aBonus;
+        this.genre = getGenreMajoritaire();
     }
     
     
@@ -46,6 +48,7 @@ public class Coffret {
     public String getTitre() {
         return titre;
     }
+    
     public Genre getGenreMajoritaire() {
         Map<Genre, Long> nbFilmsParGenre = listFilm.stream()
                 .map(Film -> Film.getSousGenre().GetGenre())
@@ -70,6 +73,12 @@ public class Coffret {
 
         return listActeurs;
     }
+
+    public List<Film> getListFilm() {
+        return listFilm;
+    }
+    
+    
     
     public List<Acteur> getListeActeursDistincts() {
     Set<Acteur> acteursDistincts = new HashSet<>(getListeActeurs());
